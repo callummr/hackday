@@ -22,8 +22,8 @@
   };
 })();
 
-angular.module('ngSwApp', [])
-  .directive('webcam', function () {
+angular.module('ngSwApp')
+  .directive('webcam', ['toastr', function (toastr) {
     return {
       template: '<div class="webcam" ng-transclude></div>',
       restrict: 'E',
@@ -61,6 +61,7 @@ angular.module('ngSwApp', [])
 
         // called when camera stream is loaded
         var onSuccess = function onSuccess(stream) {
+          toastr.success('Photon receptor detected');
           videoStream = stream;
 
           // Firefox supports a src object
@@ -83,6 +84,8 @@ angular.module('ngSwApp', [])
 
         // called when any error happens
         var onFailure = function onFailure(err) {
+          toastr.warning('Falling back to manual entry', 'Photon receptor failure');
+
           _removeDOMElement(placeholder);
           if (console && console.log) {
             console.log('The following error occured: ', err);
@@ -160,4 +163,4 @@ angular.module('ngSwApp', [])
 
       }
     };
-  });
+  }]);
