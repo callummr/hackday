@@ -9,10 +9,13 @@
 angular.module('ngSwApp')
   .directive('faceForm', function () {
     return {
-      template: '<div></div>',
+      template: '<div ng-repeat="(prop, val) in model"><p>{{prop}}: {{val}}</p></div>',
+      scope: {
+        model: '='
+      },
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
-        element.text('this is the faceForm directive');
+
       }
     };
   });

@@ -16,6 +16,9 @@ angular.module('ngSwApp')
     self.uid = '28d3ea52-1094-4739-b11a-38d767edcdff';
     //END DEBUG
     self.mode = self.uid ? 'recognize' : 'manual';
+    self.faceData = {
+      age: '23'
+    };
 
     var tries = 0;
 
@@ -31,9 +34,6 @@ angular.module('ngSwApp')
 
     // disable name checks cos API is silly names
     // jscs:disable
-    function setFaceData(faceData) {
-      // update form info
-    }
 
     function parseFaceData(data) {
       if (data.int_response !== 0) {
@@ -48,9 +48,11 @@ angular.module('ngSwApp')
         var tags = face.tags;
         console.log(face.tags);
         for (var i = 0; i < tags.length; i++) {
-          fd[tags[i].name] = tags[i].value;
+          var name = camelize(tags[i].name);
+          fd[name] = tags[i].value;
         }
         console.log(fd);
+        return fd;
       }
     }
 
@@ -69,14 +71,21 @@ angular.module('ngSwApp')
             setUpWithUid(uid);
           }, 2000)
         }
-        var faceData = parseFaceData(data);
-        setFaceData(faceData);
+        self.faceData = parseFaceData(data);
         self.ready = true;
       }, function() {
         toastr.warning('Manual processing fallback engaged', 'Photon pattern recognition failed');
         self.uid = '';
         self.ready = true;
       });
+    }
+
+    // converts strings with spaces to camelCase
+    // allows accessing by object.myName instead of object['my name']
+    function camelize(str) {
+      return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+        return index === 0 ? letter.toLowerCase() : letter.toUpperCase();
+      }).replace(/\s+/g, '');
     }
 
   });
