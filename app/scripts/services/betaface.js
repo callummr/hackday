@@ -10,7 +10,7 @@
  * Service in the ngSwApp.
  */
 angular.module('ngSwApp')
-  .service('betaface', ['$resource', function ($resource) {
+  .service('betaface', function ($resource, guid) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     // API key and secret are public trials from betafaceapi.com
     // so no problem exposing them here
@@ -37,7 +37,7 @@ angular.module('ngSwApp')
       return betafaceApi.uploadImage({}, {
         api_key: apikey,
         api_secret: secret,
-        original_filename: 'image.png',
+        original_filename: '' + guid.generate() + '.png',
         detection_flags: 'classifiers',
         imagefile_data: imageArray
       }, tempResponseHandler, tempResponseHandler);
@@ -63,5 +63,5 @@ angular.module('ngSwApp')
       });
       return byteArray;
     }
-  }]);
+  });
 // jscs:enable

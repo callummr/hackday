@@ -13,7 +13,7 @@ angular.module('ngSwApp')
     self.ready = false;
     self.uid = $routeParams.uid || '';
     //DEBUG
-    self.uid = '28d3ea52-1094-4739-b11a-38d767edcdff';
+    //self.uid = '28d3ea52-1094-4739-b11a-38d767edcdff';
     //END DEBUG
     self.mode = self.uid ? 'recognize' : 'manual';
     self.faceData = {
@@ -37,8 +37,9 @@ angular.module('ngSwApp')
 
     function parseFaceData(data) {
       if (data.int_response !== 0) {
-        toastr.error('Let\'s try again', 'No human organisms detected');
-        $location.path('/');
+        toastr.warning(data.string_response, 'Photon pattern recognition failed');
+        self.uid = '';
+        self.ready = true;
       } else if (data.faces.length > 1) {
         toastr.error('Let\'s try again', 'Multiple organisms detected');
         $location.path('/');
@@ -64,12 +65,15 @@ angular.module('ngSwApp')
         self.ready = true;
         return;
       }
+
       getFaceData(uid).$promise.then(function(data) {
+        // response 1 means still processing
         if (data.int_response === 1) {
           tries++;
           setTimeout(function() {
             setUpWithUid(uid);
-          }, 2000)
+          }, 2000);
+          return;
         }
         self.faceData = parseFaceData(data);
         self.ready = true;

@@ -1,5 +1,6 @@
 
 <p>This is the faceSettings view.</p>
-<p ng-show="faceSettings.mode==='recognize'">The UID is {{faceSettings.uid}}</p>
+<p ng-show="faceSettings.uid.length">Using face ID {{faceSettings.uid}}</p>
+<p ng-show="!faceSettings.uid.length">Using manual entry</p>
 
 <face-form ng-show="faceSettings.ready" model="faceSettings.faceData"></face-form>

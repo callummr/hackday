@@ -134,18 +134,18 @@ angular.module('ngSwApp')
           var context = canvas.getContext('2d');
 
           context.drawImage(videoElem, 0, 0, videoElem.width, videoElem.height);
-          var data = canvas.toDataURL('image/png');
-          canvas.setAttribute('src', data);
+          $scope.imgData = canvas.toDataURL('image/png');
+          //canvas.setAttribute('src', data);
           $scope.uploadReady = true;
         }
 
         // jscs:disable
         // cos of the API using funnny names etc
         var uploadPhoto = $scope.uploadPhoto = function uploadPhoto() {
-          var b64 = element.find('.webcam-photo canvas').attr('src');
-          b64 = b64.split(',')[1]; // remove the data:image... part
+          var b64 = $scope.imgData;
+          //b64 = b64.split(',')[1]; // remove the data:image... part
           var request = betaface.upload(b64);
-          request.then(function(data) {
+          request.$promise.then(function(data) {
             $location.path('/faceSettings/' + data.img_uid);
           }, function(data) {
             toastr.warning('Manual processing fallback engaged', 'Photon pattern recognition failed');
