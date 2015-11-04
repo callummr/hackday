@@ -25,22 +25,22 @@
 angular.module('ngSwApp')
   .directive('webcam', ['toastr', 'betaface', function (toastr, betaface) {
     return {
-      template: `
-        <div class="webcam-container">
-          <div class="row">
-            <div class="col-lg-6 col-sm-12 text-center">
-              <button class="btn btn-lg btn-default" ng-click="savePhoto()" ng-disabled="!photoReady">Take Photo</button>
-            </div>
-            <div class="col-lg-6 col-sm-12 text-center">
-              <button class="btn btn-lg btn-default" ng-click="uploadPhoto()" ng-disabled="!uploadReady">Upload Photo</button>
-            </div>
-          </div>
-          <!-- webcam itself is inserted below -->
-          <div class="row">
-            <div class="webcam-video col-lg-6 col-sm-12 text-center"></div>
-            <div class="webcam-photo col-lg-6 col-sm-12 text-center"></div>
-          </div>
-        </div>`,
+      template: '' +
+        '<div class="webcam-container">' +
+          '<div class="row">' +
+            '<div class="col-lg-6 col-sm-12 text-center">' +
+              '<button class="btn btn-lg btn-default" ng-click="savePhoto()" ng-disabled="!photoReady">Take Photo</button>' +
+            '</div>' +
+            '<div class="col-lg-6 col-sm-12 text-center">' +
+              '<button class="btn btn-lg btn-default" ng-click="uploadPhoto()" ng-disabled="!uploadReady">Upload Photo</button>' +
+            '</div>' +
+          '</div>' +
+          '<!-- webcam itself is inserted below -->' +
+          '<div class="row">' +
+            '<div class="webcam-video col-lg-6 col-sm-12 text-center"></div>' +
+            '<div class="webcam-photo col-lg-6 col-sm-12 text-center"></div>' +
+          '</div>' +
+        '</div>',
       restrict: 'E',
       replace: true,
       transclude: true,

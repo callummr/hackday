@@ -14,10 +14,10 @@ angular.module('ngSwApp')
     // AngularJS will instantiate a singleton by calling "new" on this function
     // API key and secret are public trials from betafaceapi.com
     // so no problem exposing them here
-    const apikey = 'd45fd466-51e2-4701-8da8-04351c872236';
-    const secret = '171e8465-f548-401d-b63b-caf0dc28df5f';
-    const betafaceUrl = 'http://www.betafaceapi.com/service_json.svc/';
-    const actions = {
+    var apikey = 'd45fd466-51e2-4701-8da8-04351c872236';
+    var secret = '171e8465-f548-401d-b63b-caf0dc28df5f';
+    var betafaceUrl = 'http://www.betafaceapi.com/service_json.svc/';
+    var actions = {
       uploadImage: {
         method: 'POST',
         params: {},
