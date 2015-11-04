@@ -30,6 +30,11 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when('/faceSettings/:uid?', {
+        templateUrl: 'views/facesettings.html',
+        controller: 'FacesettingsCtrl',
+        controllerAs: 'faceSettings'
+      })
       .otherwise({
         redirectTo: '/'
       });

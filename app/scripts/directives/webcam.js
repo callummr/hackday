@@ -23,7 +23,7 @@
 })();
 
 angular.module('ngSwApp')
-  .directive('webcam', ['toastr', 'betaface', function (toastr, betaface) {
+  .directive('webcam', function (toastr, betaface, $routeParams, $location) {
     return {
       template: '' +
         '<div class="webcam-container">' +
@@ -107,13 +107,15 @@ angular.module('ngSwApp')
 
           _removeDOMElement(placeholder);
           if (console && console.log) {
-            console.log('The following error occured: ', err);
+            console.log('Webcam initialization failed: ', err);
           }
 
           /* Call custom callback */
           if ($scope.onError) {
             $scope.onError({err:err});
           }
+
+          $location.path('/faceSettings');
 
           return;
         };
@@ -137,11 +139,20 @@ angular.module('ngSwApp')
           $scope.uploadReady = true;
         }
 
+        // jscs:disable
+        // cos of the API using funnny names etc
         var uploadPhoto = $scope.uploadPhoto = function uploadPhoto() {
           var b64 = element.find('.webcam-photo canvas').attr('src');
           b64 = b64.split(',')[1]; // remove the data:image... part
           var request = betaface.upload(b64);
-        }
+          request.then(function(data) {
+            $location.path('/faceSettings/' + data.img_uid);
+          }, function(data) {
+            toastr.warning('Manual processing fallback engaged', 'Photon pattern recognition failed');
+            $location.path('/faceSettings');
+          });
+        };
+        // jscs:enable
 
         var startWebcam = function startWebcam() {
           videoElem = document.createElement('video');
@@ -207,4 +218,4 @@ angular.module('ngSwApp')
 
       }
     };
-  }]);
+  });
