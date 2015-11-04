@@ -23,9 +23,24 @@
 })();
 
 angular.module('ngSwApp')
-  .directive('webcam', ['toastr', function (toastr) {
+  .directive('webcam', ['toastr', 'betaface', function (toastr, betaface) {
     return {
-      template: '<div class="webcam" ng-transclude></div>',
+      template: `
+        <div class="webcam-container">
+          <div class="row">
+            <div class="col-lg-6 col-sm-12 text-center">
+              <button class="btn btn-lg btn-default" ng-click="savePhoto()" ng-disabled="!photoReady">Take Photo</button>
+            </div>
+            <div class="col-lg-6 col-sm-12 text-center">
+              <button class="btn btn-lg btn-default" ng-click="uploadPhoto()" ng-disabled="!uploadReady">Upload Photo</button>
+            </div>
+          </div>
+          <!-- webcam itself is inserted below -->
+          <div class="row">
+            <div class="webcam-video col-lg-6 col-sm-12 text-center"></div>
+            <div class="webcam-photo col-lg-6 col-sm-12 text-center"></div>
+          </div>
+        </div>`,
       restrict: 'E',
       replace: true,
       transclude: true,
@@ -43,6 +58,8 @@ angular.module('ngSwApp')
             placeholder = null;
 
         $scope.config = $scope.config || {};
+        $scope.photoReady = false;
+        $scope.uploadReady = false;
 
         var _removeDOMElement = function _removeDOMElement(DOMel) {
           if (DOMel) {
@@ -80,6 +97,8 @@ angular.module('ngSwApp')
           if ($scope.onStream) {
             $scope.onStream({stream: stream});
           }
+
+          $scope.photoReady = true;
         };
 
         // called when any error happens
@@ -99,17 +118,42 @@ angular.module('ngSwApp')
           return;
         };
 
+        var savePhoto = $scope.savePhoto = function savePhoto() {
+            if (!$scope.config.canvas) {
+            var canv = document.createElement('canvas');
+            //canv.setAttribute('style', 'display:none;');
+            canv.setAttribute('width', videoElem.videoWidth);
+            canv.setAttribute('height', videoElem.videoHeight);
+            element.find('.webcam-photo').append(canv);
+            $scope.config.canvas = canv;
+          }
+
+          var canvas = $scope.config.canvas;
+          var context = canvas.getContext('2d');
+
+          context.drawImage(videoElem, 0, 0, videoElem.width, videoElem.height);
+          var data = canvas.toDataURL('image/png');
+          canvas.setAttribute('src', data);
+          $scope.uploadReady = true;
+        }
+
+        var uploadPhoto = $scope.uploadPhoto = function uploadPhoto() {
+          var b64 = element.find('.webcam-photo canvas').attr('src');
+          b64 = b64.split(',')[1]; // remove the data:image... part
+          var request = betaface.upload(b64);
+        }
+
         var startWebcam = function startWebcam() {
           videoElem = document.createElement('video');
           videoElem.setAttribute('class', 'webcam-live');
           videoElem.setAttribute('autoplay', '');
-          element.append(videoElem);
+          element.find('.webcam-video').append(videoElem);
 
           if ($scope.placeholder) {
             placeholder = document.createElement('img');
             placeholder.setAttribute('class', 'webcam-loader');
             placeholder.src = $scope.placeholder;
-            element.append(placeholder);
+            element.find('.webcam-video').append(placeholder);
           }
 
           // Default variables
