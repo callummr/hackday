@@ -21,7 +21,7 @@ angular.module('ngSwApp')
       uploadImage: {
         method: 'POST',
         params: {},
-        url: betafaceUrl + 'UploadNewImage_File'
+        url: betafaceUrl + 'UploadImage'
       },
       getInfo: {
         method: 'POST',
@@ -33,13 +33,13 @@ angular.module('ngSwApp')
     var betafaceApi = $resource(betafaceUrl, {}, actions);
 
     this.upload = function(image) {
-      var imageArray = base64ToBytes(image);
+      image = image.split(',')[1]; // remove the data:image/png bit
       return betafaceApi.uploadImage({}, {
         api_key: apikey,
         api_secret: secret,
-        original_filename: '' + guid.generate() + '.png',
+        original_filename: '' + guid.generate() + '.jpg',
         detection_flags: 'classifiers',
-        imagefile_data: imageArray
+        image_base64: image
       }, tempResponseHandler, tempResponseHandler);
     }
 
