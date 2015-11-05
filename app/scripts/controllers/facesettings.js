@@ -8,7 +8,7 @@
  * Controller of the ngSwApp
  */
 angular.module('ngSwApp')
-  .controller('FacesettingsCtrl', function ($routeParams, betaface, toastr, $location) {
+  .controller('FacesettingsCtrl', ['$routeParams', 'betaface', 'toastr', '$location', function ($routeParams, betaface, toastr, $location) {
     var self = this;
     self.ready = false;
     self.uid = $routeParams.uid || '';
@@ -92,5 +92,5 @@ angular.module('ngSwApp')
       }).replace(/\s+/g, '');
     }
 
-  });
+  }]);
 //jscs:enable

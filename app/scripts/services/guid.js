@@ -8,7 +8,7 @@
  * Service in the ngSwApp.
  */
 angular.module('ngSwApp')
-  .service('guid', function () {
+  .service('guid', [function () {
     // AngularJS will instantiate a singleton by calling "new" on this function
     this.generate = function() {
       function s4() {
@@ -19,4 +19,4 @@ angular.module('ngSwApp')
       return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
         s4() + '-' + s4() + s4() + s4();
     };
-  });
+  }]);

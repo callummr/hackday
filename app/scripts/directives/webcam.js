@@ -23,7 +23,7 @@
 })();
 
 angular.module('ngSwApp')
-  .directive('webcam', function (toastr, betaface, $routeParams, $location) {
+  .directive('webcam', ['toastr', 'betaface', '$routeParams', '$location', function (toastr, betaface, $routeParams, $location) {
     return {
       template: '' +
         '<div class="webcam-container">' +
@@ -217,4 +217,4 @@ angular.module('ngSwApp')
 
       }
     };
-  });
+  }]);

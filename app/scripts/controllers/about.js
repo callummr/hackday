@@ -8,10 +8,10 @@
  * Controller of the ngSwApp
  */
 angular.module('ngSwApp')
-  .controller('AboutCtrl', function () {
+  .controller('AboutCtrl', [function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-  });
+  }]);

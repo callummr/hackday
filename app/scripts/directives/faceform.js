@@ -7,7 +7,7 @@
  * # faceForm
  */
 angular.module('ngSwApp')
-  .directive('faceForm', function () {
+  .directive('faceForm', [function () {
     return {
       template: '<div ng-repeat="(prop, val) in model"><p>{{prop}}: {{val}}</p></div>',
       scope: {
@@ -18,4 +18,4 @@ angular.module('ngSwApp')
 
       }
     };
-  });
+  }]);

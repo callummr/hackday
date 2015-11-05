@@ -8,5 +8,6 @@
  * Controller of the ngSwApp
  */
 angular.module('ngSwApp')
-  .controller('MainCtrl', function () {
-  });
+  .controller('MainCtrl', [function () {
+    
+  }]);

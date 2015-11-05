@@ -10,7 +10,7 @@
  * Service in the ngSwApp.
  */
 angular.module('ngSwApp')
-  .service('betaface', function ($resource, guid) {
+  .service('betaface', ['$resource', 'guid', function ($resource, guid) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     // API key and secret are public trials from betafaceapi.com
     // so no problem exposing them here
@@ -63,5 +63,5 @@ angular.module('ngSwApp')
       });
       return byteArray;
     }
-  });
+  }]);
 // jscs:enable
