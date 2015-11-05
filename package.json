@@ -45,7 +45,6 @@
     "morgan": "^1.6.1"
   },
   "scripts": {
-    "preinstall": "npm install",
     "postinstall": "grunt build",
     "start": "node web.js"
   }
