@@ -1,0 +1,15 @@
+<h1 ng-show="faceSettings.uid.length && !faceSettings.ready">Waiting on analytic droids to identify your facial features...</h1>
+<h1 ng-show="faceSettings.uid.length && faceSettings.ready">Here's what our analytic droids make of you</h1>
+<h1 ng-show="!faceSettings.uid.length">Analytic droids were unable to fully identify your facial features. Please enter them below.</h1>
+
+<div class="row">
+  <div class="col-sm-12">
+    <face-form ng-show="faceSettings.ready" model="faceSettings.faceData"></face-form>
+  </div>
+</div>
+<div class="row">
+  <br />
+  <div class="col-sm-12">
+    <a ng-show="faceSettings.ready" ng-click="faceSettings.updateAndContinue()" class="btn btn-block btn-success">Continue</a>
+  </div>
+</div>
