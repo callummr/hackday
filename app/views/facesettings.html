@@ -1,7 +1,6 @@
-
-<p>This is the faceSettings view.</p>
-<p ng-show="faceSettings.uid.length">Using face ID {{faceSettings.uid}}</p>
-<p ng-show="!faceSettings.uid.length">Using manual entry</p>
+<h1 ng-show="faceSettings.uid.length && !faceSettings.ready">Waiting on analytic droids to identify your facial features...</h1>
+<h1 ng-show="faceSettings.uid.length && faceSettings.ready">Here's what our analytic droids make of you</h1>
+<h1 ng-show="!faceSettings.uid.length">Analytic droids were unable to fully identify your facial features. Please enter them below.</h1>
 
 <div class="row">
   <div class="col-sm-12">

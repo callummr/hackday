@@ -17,7 +17,7 @@ angular.module('ngSwApp')
       faceData.side = data.smile === 'yes' ? 'light' : 'dark';
       faceData.eyeColour = data.colorEyes;
       faceData.skinColour = data.colorSkin;
-      faceData.hairColour = data.colorHair;
+      faceData.hairColour = data.colorHair ? data.colorHair : '997058';
 
       console.log('updated userFace', faceData);
     }

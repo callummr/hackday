@@ -14,7 +14,7 @@ angular.module('ngSwApp')
     self.userFace = userFace.getFaceData();
     self.processing = true;
 
-    swapi.people.get().then(function(people) {
+    swapi.people.all().then(function(people) {
       self.swapiData = people;
       console.log(people);
 
