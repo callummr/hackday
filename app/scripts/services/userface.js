@@ -30,4 +30,15 @@ angular.module('ngSwApp')
     this.getFaceData = function() {
       return faceData;
     }
+
+    this.getEmptyModel = function() {
+      return {
+        age: '',
+        gender: '',
+        side: '',
+        eyeColour: '',
+        skinColour: '',
+        hairColour: ''
+      }
+    }
   });

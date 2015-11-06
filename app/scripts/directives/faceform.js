@@ -20,16 +20,20 @@ angular.module('ngSwApp')
           side: ['dark', 'light']
         }
 
+        var colourFields = ['eyeColour', 'hairColour', 'skinColour'];
+        var textFields = ['age'];
+        var dropdownFields = ['gender', 'side'];
+
         scope.isText = function(prop) {
-          return ['gender', 'side'].indexOf(prop);
+          return textFields.indexOf(prop) > -1;
         }
 
         scope.isDropdown = function(prop) {
-          return ['gender', 'side'].indexOf(prop) > -1;
+          return dropdownFields.indexOf(prop) > -1;
         }
 
         scope.isColour = function(prop) {
-          return prop !== 'age' && ['gender', 'side'].indexOf(prop) === -1;
+          return colourFields.indexOf(prop) > -1;
         }
       }
     };

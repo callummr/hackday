@@ -62,6 +62,7 @@ angular.module('ngSwApp')
       if (tries >= 10) {
         toastr.warning('Manual processing fallback engaged', 'Photon pattern recognition failed');
         self.uid = '';
+        self.faceData = userFace.getEmptyModel();
         self.ready = true;
         return;
       }
@@ -81,6 +82,7 @@ angular.module('ngSwApp')
       }, function() {
         toastr.warning('Manual processing fallback engaged', 'Photon pattern recognition failed');
         self.uid = '';
+        self.faceData = userFace.getEmptyModel();
         self.ready = true;
       });
     }
