@@ -8,7 +8,7 @@
  * Controller of the ngSwApp
  */
 angular.module('ngSwApp')
-  .controller('FacesettingsCtrl', ['$routeParams', 'betaface', 'toastr', '$location', function ($routeParams, betaface, toastr, $location) {
+  .controller('FacesettingsCtrl', ['$routeParams', 'betaface', 'toastr', '$location', 'userFace', function ($routeParams, betaface, toastr, $location, userFace) {
     var self = this;
     self.ready = false;
     self.uid = $routeParams.uid || '';
@@ -76,6 +76,7 @@ angular.module('ngSwApp')
           return;
         }
         self.faceData = parseFaceData(data);
+        userFace.setFaceData(self.faceData); // make it globally available
         self.ready = true;
       }, function() {
         toastr.warning('Manual processing fallback engaged', 'Photon pattern recognition failed');

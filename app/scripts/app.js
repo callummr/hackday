@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'toastr'
+    'toastr',
+    'ne.swapi'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -34,6 +35,11 @@ angular
         templateUrl: 'views/facesettings.html',
         controller: 'FacesettingsCtrl',
         controllerAs: 'faceSettings'
+      })
+      .when('/swapitest', {
+        templateUrl: 'views/swapitest.html',
+        controller: 'SwapitestCtrl',
+        controllerAs: 'swapitest'
       })
       .otherwise({
         redirectTo: '/'

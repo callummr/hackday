@@ -38,7 +38,7 @@ angular.module('ngSwApp')
         api_key: apikey,
         api_secret: secret,
         original_filename: '' + guid.generate() + '.jpg',
-        detection_flags: 'classifiers',
+        detection_flags: 'extended,classifiers',
         image_base64: image
       }, tempResponseHandler, tempResponseHandler);
     }
