@@ -11,81 +11,96 @@ angular.module('ngSwApp')
     .service('colourMapper', function() {
         // AngularJS will instantiate a singleton by calling "new" on this function
 
-
         var eyeMap = {
-            "blue": "0000FF",
-            "yellow": "FFFF00",
-            "red": "FF0000",
-            "brown": "6A3A0A",
-            "blue-gray": "8F8FFF",
-            "black": "000000",
-            "orange": "FFA500",
-            "hazel": "FFCA23",
-            "pink": "FFB2C2",
-            "unknown": "FFF3C0",
-            "red, blue": "FFB8C7",
-            "gold": "FFCA23",
-            "green, yellow": "E0D823",
-            "white": "CCCCCC",
-            "dark": "524729"
+            "colors": [
+                { "name": "blue", "hex": "0000FF" },
+                { "name": "yellow", "hex": "FFFF00" },
+                { "name": "red", "hex": "FF0000" },
+                { "name": "brown", "hex": "6A3A0A" },
+                { "name": "blue-gray", "hex": "8F8FFF" },
+                { "name": "black", "hex": "000000" },
+                { "name": "orange", "hex": "FFA500" },
+                { "name": "hazel", "hex": "FFCA23" },
+                { "name": "pink", "hex": "FFB2C2" },
+                { "name": "unknown", "hex": "FFF3C0" },
+                { "name": "red, blue", "hex": "FFB8C7" },
+                { "name": "gold", "hex": "FFCA23" },
+                { "name": "green}, yellow", "hex": "E0D823" },
+                { "name": "white", "hex": "CCCCCC" },
+                { "name": "dark", "hex": "524729" }
+            ]
         }
 
         var hairMap = {
-            "blond": "F2DA91",
-            "n/a": "997058",
-            "none": "373833",
-            "brown": "A0522D",
-            "brown, grey": "D2B48C",
-            "black": "000000",
-            "auburn, white": "B08D8D",
-            "auburn, grey": "A56A6A",
-            "white": "E8E6E6",
-            "grey": "A6A4A4",
-            "auburn": "A52A2A",
-            "blonde": "F2DA91",
-            "unknown": "7A7777"
+            "colors": [
+                { "name": "blond", "hex": "F2DA91" },
+                { "name": "n/a", "hex": "997058" },
+                { "name": "none", "hex": "373833" },
+                { "name": "brown", "hex": "A0522D" },
+                { "name": "brown, grey", "hex": "D2B48C" },
+                { "name": "black", "hex": "000000" },
+                { "name": "auburn, white", "hex": "B08D8D" },
+                { "name": "auburn, grey", "hex": "A56A6A" },
+                { "name": "white", "hex": "E8E6E6" },
+                { "name": "grey", "hex": "A6A4A4" },
+                { "name": "auburn", "hex": "A52A2A" },
+                { "name": "blonde", "hex": "F2DA91" },
+                { "name": "unknown", "hex": "7A7777" }
+            ]
         }
 
         var skinMap = {
-            "fair": "FFE0BD",
-            "gold": "FFD700",
-            "white, blue": "C2BDFF",
-            "white": "FAFAFA",
-            "light": "FFEEDB",
-            "white, red": "FFBBBB",
-            "unknown": "666666",
-            "green": "77FF77",
-            "green-tan, brown": "CCF179",
-            "pale": "FFE8DE",
-            "metal": "E3CFC5",
-            "dark": "D7B998",
-            "brown mottle": "9C856A",
-            "brown": "B59369",
-            "grey": "AAAAAA",
-            "mottled green": "80A16A",
-            "orange": "D47B4A",
-            "blue, grey": "AFBEE4",
-            "grey, red": "F17D6F",
-            "red": "FF2222",
-            "blue": "2222FF",
-            "grey, blue": "A49CF1",
-            "grey, green, yellow": "FBE6A1",
-            "yellow": "FFF21F",
-            "tan": "BA581F",
-            "fair, green, yellow": "F3ED30",
-            "silver, red": "FF9276",
-            "green, grey": "91F2AC",
-            "red, blue, white": "F4AACC",
-            "brown, white": "B88975",
-            "none": "000000"
+            "colors": [
+                { "name": "fair", "hex": "FFE0BD" },
+                { "name": "gold", "hex": "FFD700" },
+                { "name": "white, blue", "hex": "C2BDFF" },
+                { "name": "white", "hex": "FAFAFA" },
+                { "name": "light", "hex": "FFEEDB" },
+                { "name": "white, red", "hex": "FFBBBB" },
+                { "name": "unknown", "hex": "666666" },
+                { "name": "green", "hex": "77FF77" },
+                { "name": "green-tan, brown", "hex": "CCF179" },
+                { "name": "pale", "hex": "FFE8DE" },
+                { "name": "metal", "hex": "E3CFC5" },
+                { "name": "dark", "hex": "D7B998" },
+                { "name": "brown mottle", "hex": "9C856A" },
+                { "name": "brown", "hex": "B59369" },
+                { "name": "grey", "hex": "AAAAAA" },
+                { "name": "mottled green", "hex": "80A16A" },
+                { "name": "orange", "hex": "D47B4A" },
+                { "name": "blue, grey", "hex": "AFBEE4" },
+                { "name": "grey, red", "hex": "F17D6F" },
+                { "name": "red", "hex": "FF2222" },
+                { "name": "blue", "hex": "2222FF" },
+                { "name": "grey, blue", "hex": "A49CF1" },
+                { "name": "grey, green, yellow", "hex": "FBE6A1" },
+                { "name": "yellow", "hex": "FFF21F" },
+                { "name": "tan", "hex": "BA581F" },
+                { "name": "fair, green, yellow", "hex": "F3ED30" },
+                { "name": "silver, red", "hex": "FF9276" },
+                { "name": "green, grey", "hex": "91F2AC" },
+                { "name": "red, blue, white", "hex": "F4AACC" },
+                { "name": "brown, white", "hex": "B88975" },
+                { "name": "none", "hex": "00000A" }
+            ]
+        }
+
+        this.compare = function(a, b) {
+            if (a.distance < b.distance)
+                return -1;
+            if (a.distance > b.distance)
+                return 1;
+            return 0;
         }
 
         this.getClosestSkin = function(hexFromBetaFace) {
-
             var skinPoints = [];
-            for (var i = 0; i < skinMap.length; i++) {
-                skinPoints[i] = this.getHexProximity(hexFromBetaFace, skinMap[i]);
+            for (var i = 0; i < skinMap.colors.length; i++) {
+                skinPoints[i].name = skinMap.colors[i].name;
+                skinPoints[i].distance = this.getHexProximity(hexFromBetaFace, skinMap.colors[i].hex);
             }
+            skinPoints.sort(this.compare);
+            return skinPoints;
         }
 
         this.getSkinHex = function(skinString) {
@@ -104,17 +119,20 @@ angular.module('ngSwApp')
             }
         }
 
-        this.getHexProximity = function(hex1, hex2) {
-            var hex1Array = splitHex(hex1);
-            var hex2Array = splitHex(hex2);
+        this.getHexProximity = function (hex1, hex2) {
+            var hex1ArrayString = this.splitHex(hex1);
+            var hex2ArrayString = this.splitHex(hex2);
 
-            var xyz1 = rgbToXyz(hex1Array[0], hex1Array[1], hex1Array[2]);
-            var xyz2 = rgbToXyz(hex2Array[0], hex2Array[1], hex2Array[2]);
+            var hex1Array = [this.hexToInt(hex1ArrayString[0]), this.hexToInt(hex1ArrayString[1]), this.hexToInt(hex1ArrayString[2])];
+            var hex2Array = [this.hexToInt(hex2ArrayString[0]), this.hexToInt(hex2ArrayString[1]), this.hexToInt(hex2ArrayString[2])];
 
-            var lab1 = xyzToLab(xyz1[0], xyz1[1], xyz1[2]);
-            var lab2 = xyzToLab(xyz2[0], xyz2[1], xyz2[2]);
+            var xyz1 = this.rgbToXyz(hex1Array[0], hex1Array[1], hex1Array[2]);
+            var xyz2 = this.rgbToXyz(hex2Array[0], hex2Array[1], hex2Array[2]);
 
-            var diff = cie1994(lab1, lab2, false);
+            var lab1 = this.xyzToLab(xyz1[0], xyz1[1], xyz1[2]);
+            var lab2 = this.xyzToLab(xyz2[0], xyz2[1], xyz2[2]);
+
+            var diff = this.cie1994(lab1, lab2, false);
 
             return diff;
         }
