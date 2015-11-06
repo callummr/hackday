@@ -18,7 +18,7 @@ angular
     'ngTouch',
     'toastr',
     'ne.swapi',
-    'color.picker'
+    'colorpicker.module'
   ])
   .config(function ($routeProvider) {
     $routeProvider

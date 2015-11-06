@@ -14,7 +14,7 @@ angular.module('ngSwApp')
     this.setFaceData = function(data) {
       faceData.age = data.age;
       faceData.gender = data.gender;
-      faceData.side = data.smile === "yes" ? 'light' : 'dark';
+      faceData.side = data.smile === 'yes' ? 'light' : 'dark';
       faceData.eyeColour = data.colorEyes;
       faceData.skinColour = data.colorSkin;
       faceData.hairColour = data.colorHair;
