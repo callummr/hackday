@@ -272,6 +272,12 @@ function getParents(hairColor, skinColor, eyeColor, age, side, gender, data) {
     }
 }
 
+function getParent(hairColor, skinColor, eyeColor, age, side, gender, data) {
+    peopleData = data;
+    var result = pointsForPeopleData(hairColor, skinColor, eyeColor, age, side, gender);
+    return result[0];
+}
+
 var hairPoints;
 var eyePoints;
 var skinPoints;
