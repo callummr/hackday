@@ -1,1 +1,2 @@
-<div ng-repeat="person in swapitest.people">{{person}}</div>
+<div ng-show="swapitest.ready" ng-repeat="person in swapitest.people">{{person}}</div>
+<div ng-show="!swapitest.ready">Loading</div>
