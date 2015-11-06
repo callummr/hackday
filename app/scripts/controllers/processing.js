@@ -14,10 +14,11 @@ angular.module('ngSwApp')
     self.userFace = userFace.getFaceData();
     self.processing = true;
 
-    swapi.people.all().then(function(people) {
+    swapi.people.get().then(function(people) {
       self.swapiData = people;
       console.log(people);
 
-      // patryk's magic here
+      self.resultText = "I am your father";
+      self.processing = false;
     });
   }]);
