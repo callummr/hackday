@@ -66,9 +66,28 @@ angular.module('ngSwApp')
     }
 
     this.getHexProximity = function(hex1, hex2) {
+      var hex1Array = splitHex(hex1);
+      var hex2Array = splitHex(hex2);
+
+
       // should return some sort of rating of
       // how close two hex codes are
       // how the fuck do you measure that
+    }
+
+    function hexToIntArray()
+
+    function hexToInt(hex) {
+
+
+    }
+
+    function splitHex(hex) {
+      return [
+        hex.substr(0,2),
+        hex.substr(2,2),
+        hex.substr(4,2)
+      ];
     }
 
   });
