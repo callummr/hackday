@@ -14,13 +14,14 @@ angular.module('ngSwApp')
     this.setFaceData = function(data) {
       faceData.age = data.age;
       faceData.gender = data.gender;
-      faceData.race = data.race; // TODO: Replace with mapped colour
+      faceData.race = data.race;
       faceData.side = data.smile === "yes" ? 'light' : 'dark';
-      faceData.eyeColour = data.colorEyes; // TODO: Replace with mapped colour
+      faceData.eyeColour = data.colorEyes;
+      faceData.eyeColourString = ''; // TODO: Replace with mapped colour
       faceData.skinColour = data.colorSkin;
-      faceData.hairColour = data.hairColorType.split(' ')[0]; // second is usually "light|dark"
-      // TODO: replace ^ with mapped colour
-      // TODO: possibly use light/dark in mapping hair colour
+      faceData.skinColourString = ''; // TODO: Replace with mapped colour
+      faceData.hairColour = data.colorHair;
+      faceData.hairColourString = ''; // TODO: Replace with mapped colour
 
       console.log('updated userFace', faceData);
     }
