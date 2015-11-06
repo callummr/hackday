@@ -75,8 +75,8 @@ angular.module('ngSwApp')
           }, 2000);
           return;
         }
-        self.faceData = parseFaceData(data);
         userFace.setFaceData(self.faceData); // make it globally available
+        self.faceData = userFace.getFaceData();
         self.ready = true;
       }, function() {
         toastr.warning('Manual processing fallback engaged', 'Photon pattern recognition failed');
