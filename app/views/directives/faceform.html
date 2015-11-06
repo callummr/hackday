@@ -1,0 +1,18 @@
+<form>
+ <div ng-repeat="(prop, val) in model" class="form-group">
+   <label>{{prop}}</label>
+
+   <!-- text -->
+   <input type="text" class="form-control" ng-if="isText(prop)" ng-model="model[prop]">
+   <input type="text" class="form-control" colorpicker="hex" ng-if="isColour(prop)" ng-model="model[prop]" />
+   <!-- end text -->
+
+   <!-- dropdown -->
+   <select class="form-control" ng-if="isDropdown(prop)" ng-model="model[prop]">
+    <option ng-repeat="optionVal in availableOptions[prop]">{{optionVal}}</option>
+   </select>
+   <!-- end dropdown -->
+
+ </div>
+</form>
+{{model}}
