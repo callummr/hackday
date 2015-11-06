@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'toastr',
-    'ne.swapi'
+    'ne.swapi',
+    'color.picker'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -40,6 +41,11 @@ angular
         templateUrl: 'views/swapitest.html',
         controller: 'SwapitestCtrl',
         controllerAs: 'swapitest'
+      })
+      .when('/processing', {
+        templateUrl: 'views/processing.html',
+        controller: 'ProcessingCtrl',
+        controllerAs: 'processing'
       })
       .otherwise({
         redirectTo: '/'

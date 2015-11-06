@@ -93,5 +93,10 @@ angular.module('ngSwApp')
       }).replace(/\s+/g, '');
     }
 
+    self.updateAndContinue = function() {
+      userFace.setFaceDataNormalized(self.faceData);
+      $location.path('/processing');
+    }
+
   }]);
 //jscs:enable

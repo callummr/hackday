@@ -11,7 +11,8 @@
     "angular-sanitize": "^1.4.0",
     "angular-touch": "^1.4.0",
     "angular-toastr": "~1.5.0",
-    "ne-swapi": "~0.1.4"
+    "ne-swapi": "~0.1.4",
+    "angular-color-picker": "angularjs-color-picker#~0.6.9"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
