@@ -75,7 +75,7 @@ angular.module('ngSwApp')
           }, 2000);
           return;
         }
-        userFace.setFaceData(self.faceData); // make it globally available
+        userFace.setFaceData(parseFaceData(data)); // make it globally available
         self.faceData = userFace.getFaceData();
         self.ready = true;
       }, function() {
