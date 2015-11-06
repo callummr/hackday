@@ -1,3 +1,6 @@
+
+//=========================== Maps
+
 var eyeMap = {
     "colors": [
         { "name": "blue", "hex": "0000FF" },
@@ -12,7 +15,7 @@ var eyeMap = {
         { "name": "unknown", "hex": "FFF3C0" },
         { "name": "red, blue", "hex": "FFB8C7" },
         { "name": "gold", "hex": "FFCA23" },
-        { "name": "green}, yellow", "hex": "E0D823" },
+        { "name": "green, yellow", "hex": "E0D823" },
         { "name": "white", "hex": "CCCCCC" },
         { "name": "dark", "hex": "524729" }
     ]
@@ -72,28 +75,24 @@ var skinMap = {
     ]
 }
 
-function getClosestSkin(hexFromBetaFace) {
-    var skinPoints = [];
-    for (var i = 0; i < skinMap.colors.length; i++) {
-        skinPoints[i] = getHexProximity(hexFromBetaFace, skinMap.colors[i].hex);
-    }
-    return skinPoints;
+//=========================== Science
+
+function compare(a, b) {
+    if (a.distance < b.distance)
+        return -1;
+    if (a.distance > b.distance)
+        return 1;
+    return 0;
 }
 
-function getSkinHex(skinString) {
-    if (typeof skinMap[skinString] !== "undefined") {
-        return skinMap[skinString];
-    } else {
-        return false;
+function getClosest(hexFromBetaFace, map) {
+    var points = [];
+    for (var i = 0; i < map.colors.length; i++) {
+        points[i] = { "name": "n/a", "distance": 99999 };
+        points[i].name = map.colors[i].name;
+        points[i].distance = getHexProximity(hexFromBetaFace, map.colors[i].hex);
     }
-}
-
-function getEyeHex(eyeString) {
-    if (typeof eyeMap[eyeString] !== "undefined") {
-        return eyeMap[eyeString];
-    } else {
-        return false;
-    }
+    return points.sort(compare);
 }
 
 function getHexProximity(hex1, hex2) {
@@ -236,10 +235,115 @@ function cie1994(x, y, isTextiles) {
     return Math.sqrt(Math.pow((dl / (kl * sl)), 2) + Math.pow((dc / (kc * sc)), 2) + Math.pow((dh / (kh * sh)), 2));
 };
 
-$(document).ready(function () {
-    var result = getClosestSkin("FF0000");
-    for (var i = 0; i < result.length; i++) {
-        $(".test").append(skinMap.colors[i].name + ' - ' + result[i]);
-        $(".test").append($("<br />"));
+//=========================== Data
+
+var peopleDataFromApi = [];
+var peopleDataRaw = [];
+var peopleData = [];
+
+function sendQuery(api, hairColor, skinColor, eyeColor, age, side, gender) {
+    $.ajax({
+        type: "GET",
+        url: api,
+        crossDomain: true
+    }).done(function(data) {
+        peopleDataFromApi.push(data);
+        sendNextQuery(data, hairColor, skinColor, eyeColor, age, side, gender);
+    });
+}
+
+function sendNextQuery(data, hairColor, skinColor, eyeColor, age, side, gender) {
+    if (data.next) {
+        sendQuery(data.next, hairColor, skinColor, eyeColor, age, side, gender);
+    } else {
+        getParents(hairColor, skinColor, eyeColor, age, side, gender, peopleDataFromApi);
     }
+}
+
+function getParents(hairColor, skinColor, eyeColor, age, side, gender, data) {
+    setPointsArrays(hairColor, skinColor, eyeColor, age, side, gender);
+    peopleDataRaw = data;
+
+    //return formatPeopleData(hairColor, skinColor, eyeColor, age, side, gender);
+    var results = formatPeopleData(hairColor, skinColor, eyeColor, age, side, gender);
+
+    for (var i = 0; i < results.length; i++) {
+        $('.test').append('<p>' + peopleData[results[i].originalIndex].gender + ' - ' + results[i].name + ' ' + results[i].distance + '</p>');
+    }
+}
+
+var hairPoints;
+var eyePoints;
+var skinPoints;
+
+function setPointsArrays(hairColor, skinColor, eyeColor, age, side, gender) {
+    hairPoints = getClosest(hairColor, hairMap);
+    eyePoints = getClosest(eyeColor, eyeMap);
+    skinPoints = getClosest(skinColor, skinMap);
+}
+
+function formatPeopleData(hairColor, skinColor, eyeColor, age, side, gender) {
+
+    var peopleDataCount = 0;
+    for (var i = 0; i < peopleDataRaw.length; i++) {
+        for (var j = 0; j < peopleDataRaw[i].results.length; j++) {
+            peopleData[peopleDataCount] = peopleDataRaw[i].results[j];
+            peopleDataCount++;
+        }
+    }
+
+    return pointsForPeopleData(hairColor, skinColor, eyeColor, age, side, gender);
+}
+
+function getPointsForName(pointsArray, name) {
+    var result = 0;
+    for (var i = 0; i < pointsArray.length; i++) {
+        if (pointsArray[i].name == name) {
+            result = pointsArray[i].distance;
+        }
+    }
+    return result;
+}
+
+function tryParseInt(str, defaultValue) {
+    var retValue = defaultValue;
+    if (str !== null) {
+        if (str.length > 0) {
+            if (!isNaN(str)) {
+                retValue = parseInt(str);
+            }
+        }
+    }
+    return retValue;
+}
+
+function pointsForPeopleData(hairColor, skinColor, eyeColor, age, side, gender) {
+    var points = [];
+    for (var i = 0; i < peopleData.length; i++) {
+        var skinColorName = peopleData[i].skin_color;
+        var eyeColorName = peopleData[i].eye_color;
+        var hairColorName = peopleData[i].hair_color;
+
+        points[i] = { "name": "n/a", "distance": 0, "originalIndex" : 0 };
+        points[i].name = peopleData[i].name;
+        var skinColorPoints = getPointsForName(skinPoints, skinColorName);
+        var hairColorPoints = getPointsForName(hairPoints, hairColorName);
+        var eyeColorPoints = getPointsForName(eyePoints, eyeColorName);
+        points[i].distance = skinColorPoints + hairColorPoints + eyeColorPoints;
+        points[i].originalIndex = i;
+
+        if (peopleData[i].birth_year) {
+            var swAgeString = peopleData[i].birth_year.replace('BBY', '');
+            var swAge = tryParseInt(swAgeString, 30);
+            var ageDiff = swAge - age;
+            points[i].name = points[i].name;
+            points[i].distance = points[i].distance + Math.sqrt(Math.abs(ageDiff));
+        }
+    }
+    return points.sort(compare);
+}
+
+$(document).ready(function () {
+    //hair, skin, eye, age, force, gender
+    sendQuery("http://swapi.co/api/people/", "faf0be", "fae7d0", "7777ff", 25, "dark", "male");
 });
